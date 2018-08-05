@@ -1,18 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="app.bestsalary.shareimageplugin">
-
-    <application >
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="shareImage"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
-    </application>
-
 </manifest>
