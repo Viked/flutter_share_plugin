@@ -13,7 +13,6 @@ import java.io.File
 
 const val SHARE_CHANNEL = "channel:app.bestsalary.shareimageplugin/share_image_plugin"
 const val SHARE_IMAGE = "shareImage"
-const val SHARE_IMAGE_PROVIDER = "app.securedrive.flutter.image_provider"
 const val IMAGE = "image"
 const val TEXT = "text"
 
@@ -36,7 +35,7 @@ class ShareImagePlugin(private val context: Context) : MethodCallHandler {
 
     private fun shareFile(path: String, text: String) {
         val imageFile = File(context.applicationContext.cacheDir, path)
-        val contentUri = FileProvider.getUriForFile(context, SHARE_IMAGE_PROVIDER, imageFile)
+        val contentUri = FileProvider.getUriForFile(context, SHARE_IMAGE, imageFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "image/jpg"
         shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
