@@ -36,7 +36,6 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
     func share(shareImage:UIImage){
         let shareItems:Array = [shareImage]
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
         viewController.present(activityViewController, animated: true, completion: nil)
     }
 }
