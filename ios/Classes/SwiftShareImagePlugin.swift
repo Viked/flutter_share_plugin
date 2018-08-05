@@ -9,7 +9,7 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
     
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: SwiftShareImagePlugin.SHARE_CHANNEL, binaryMessenger: registrar.messenger())
-    let appDelegate : AppDelegate= UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let instance = SwiftShareImagePlugin.init(viewController:appDelegate.window!.rootViewController)
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
@@ -28,13 +28,13 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
 
         let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(shareImageName)
         let image    = UIImage(contentsOfFile: imageURL.path)
-        share(image)
+        share(shareImage:image)
     }
     result("iOS " + UIDevice.current.systemVersion)
   }
     
     func share(shareImage:UIImage){
-        var shareItems:Array = [shareImage]
+        let shareItems:Array = [shareImage]
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
         viewController.present(activityViewController, animated: true, completion: nil)
