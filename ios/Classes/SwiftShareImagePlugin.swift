@@ -9,7 +9,7 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
     
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: SwiftShareImagePlugin.SHARE_CHANNEL, binaryMessenger: registrar.messenger())
-    let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
     let instance = SwiftShareImagePlugin.init(viewController:appDelegate.window!.rootViewController)
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
