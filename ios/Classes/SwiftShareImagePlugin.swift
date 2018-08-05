@@ -17,9 +17,10 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if(call.method.elementsEqual(SwiftShareImagePlugin.SHARE_IMAGE)){
         let arguments = call.arguments as? NSDictionary
-       let shareImagePath = arguments![SwiftShareImagePlugin.IMAGE] as? String
-        
-        let imageURL = URL(shareImagePath)
+        let shareImageName = arguments![SwiftShareImagePlugin.IMAGE] as? String
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+
+        let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(shareImageName)
         let image    = UIImage(contentsOfFile: imageURL.path)
         share(image)
     }
@@ -27,8 +28,7 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
   }
     
     func share(shareImage:UIImage){
-        var img: UIImage = shareImage!
-        var shareItems:Array = [img]
+        var shareItems:Array = [shareImage]
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
         self.present(activityViewController, animated: true, completion: nil)
