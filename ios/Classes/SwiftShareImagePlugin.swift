@@ -28,7 +28,7 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
 
         let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(shareImageName)
         let image    = UIImage(contentsOfFile: imageURL.path)
-        share(shareImage:image)
+        share(shareImage:image!)
     }
     result("iOS " + UIDevice.current.systemVersion)
   }
