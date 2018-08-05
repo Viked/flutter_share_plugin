@@ -9,10 +9,12 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
     
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: SwiftShareImagePlugin.SHARE_CHANNEL, binaryMessenger: registrar.messenger())
-    let instance = SwiftShareImagePlugin()
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let instance = SwiftShareImagePlugin(viewController:appDelegate.window!.rootViewController)
     registrar.addMethodCallDelegate(instance, channel: channel)
-
   }
+
+    UIViewController viewController
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if(call.method.elementsEqual(SwiftShareImagePlugin.SHARE_IMAGE)){
@@ -20,7 +22,7 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
         let shareImageName = arguments![SwiftShareImagePlugin.IMAGE] as? String
         let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
 
-        let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(shareImageName)
+        let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(!shareImageName)
         let image    = UIImage(contentsOfFile: imageURL.path)
         share(image)
     }
@@ -31,6 +33,6 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
         var shareItems:Array = [shareImage]
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.copyToPasteboard, UIActivityType.addToReadingList, UIActivityType.postToVimeo]
-        self.present(activityViewController, animated: true, completion: nil)
+        viewController.present(activityViewController, animated: true, completion: nil)
     }
 }
