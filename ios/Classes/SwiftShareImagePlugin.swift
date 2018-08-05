@@ -10,19 +10,23 @@ public class SwiftShareImagePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: SwiftShareImagePlugin.SHARE_CHANNEL, binaryMessenger: registrar.messenger())
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    let instance = SwiftShareImagePlugin(viewController:appDelegate.window!.rootViewController)
+    let instance = SwiftShareImagePlugin.init(viewController:appDelegate.window!.rootViewController)
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
     UIViewController viewController
 
+    init(viewController:UIViewController){
+     self.viewController = viewController
+    }
+
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if(call.method.elementsEqual(SwiftShareImagePlugin.SHARE_IMAGE)){
         let arguments = call.arguments as? NSDictionary
-        let shareImageName = arguments![SwiftShareImagePlugin.IMAGE] as? String
+        let shareImageName = arguments![SwiftShareImagePlugin.IMAGE] as! String
         let documentsPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
 
-        let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(!shareImageName)
+        let imageURL = URL(fileURLWithPath:documentsPath).appendingPathComponent(shareImageName)
         let image    = UIImage(contentsOfFile: imageURL.path)
         share(image)
     }
