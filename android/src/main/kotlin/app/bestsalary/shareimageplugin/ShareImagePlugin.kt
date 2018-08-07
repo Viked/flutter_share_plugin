@@ -10,13 +10,13 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.File
 
-
-const val SHARE_CHANNEL = "channel:app.bestsalary.shareimageplugin/share_image_plugin"
-const val SHARE_IMAGE = "shareImage"
-const val IMAGE = "image"
-const val TEXT = "text"
-
 class ShareImagePlugin(private val context: Context) : MethodCallHandler {
+
+    private val SHARE_CHANNEL = "channel:app.bestsalary.shareimageplugin/share_image_plugin"
+    private val SHARE_IMAGE = "shareImage"
+    private val IMAGE = "image"
+    private val TEXT = "text"
+
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
