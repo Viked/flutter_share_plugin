@@ -12,12 +12,14 @@ import java.io.File
 
 class ShareImagePlugin(private val context: Context) : MethodCallHandler {
 
-    private val SHARE_CHANNEL = "channel:app.bestsalary.shareimageplugin/share_image_plugin"
     private val SHARE_IMAGE = "shareImage"
     private val IMAGE = "image"
     private val TEXT = "text"
 
     companion object {
+
+        private val SHARE_CHANNEL = "channel:app.bestsalary.shareimageplugin/share_image_plugin"
+
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), SHARE_CHANNEL)
