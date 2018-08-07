@@ -39,9 +39,10 @@ class ShareImagePlugin(private val context: Context) : MethodCallHandler {
         val imageFile = File(context.applicationContext.cacheDir, path)
         val contentUri = FileProvider.getUriForFile(context, SHARE_IMAGE, imageFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "image/jpg"
         shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-        context.startActivity(Intent.createChooser(shareIntent, text))
+        val chooser = Intent.createChooser(shareIntent, text)
+        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(chooser)
     }
 }
